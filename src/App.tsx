@@ -1,8 +1,36 @@
-import { useState } from "react";
 import { ethers } from "ethers";
 import "./App.css";
+import { useEffect, useState } from "react";
 
-function App() {
+const App = () => {
+  const [currentAccount, setCurrentAccount] = useState([""]);
+  console.log(`Current Account: ${currentAccount}`);
+
+  const chekIfWalletIsConnected = async () => {
+    try {
+      const { ethereum } = window as any;
+      if (!ethereum) {
+        return console.log("make sure you have METAMASK");
+      } else {
+        console.log("We have the ethereum object", ethereum);
+      }
+
+      const accounts = await ethereum.request({ medhod: "eth_accounts" });
+      if (accounts !== 0) {
+        const account = accounts[0];
+        console.log(`your account: ${account}`);
+      } else {
+        console.log("no authorized account found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    chekIfWalletIsConnected();
+  }, []);
+
   return (
     <div className="mainContainer">
       <div className="dataContainer">
@@ -27,6 +55,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
