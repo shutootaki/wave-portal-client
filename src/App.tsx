@@ -15,7 +15,7 @@ const App = () => {
         console.log("We have the ethereum object", ethereum);
       }
 
-      const accounts = await ethereum.request({ medhod: "eth_accounts" });
+      const accounts = await ethereum.request({ method: "eth_accounts" });
       if (accounts !== 0) {
         const account = accounts[0];
         console.log(`your account: ${account}`);
