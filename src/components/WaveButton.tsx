@@ -1,5 +1,14 @@
-import React from "react";
+import { FC } from "react";
 
-export const WaveButton = () => {
-  return <div>WaveButton</div>;
+type Props = {
+  children: string;
+  onClick?: () => void;
+};
+
+export const WaveButton: FC<Props> = ({ children, onClick }) => {
+  return (
+    <button className="waveButton" onClick={onClick}>
+      {children}
+    </button>
+  );
 };

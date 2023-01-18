@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useConnectWallet } from "../types/hooks/useConnectWallet";
+import { WaveButton } from "./WaveButton";
 
 export const WavePage = () => {
   const [currentAccount, setCurrentAccount] = useState<string[]>([""]);
   console.log(`Current Account: ${currentAccount}`);
+  const connectWallet = useConnectWallet(setCurrentAccount);
 
   const chekIfWalletIsConnected = async () => {
+    const { ethereum } = window;
+
     try {
-      const { ethereum } = window;
       if (!ethereum) {
         return console.log("make sure you have METAMASK");
       } else {
@@ -14,12 +18,12 @@ export const WavePage = () => {
       }
 
       const accounts = await ethereum.request({ method: "eth_accounts" });
-      if (accounts !== 0) {
+      if (accounts[0] === undefined) {
+        console.log("no authorized account found");
+      } else if (accounts !== 0) {
         const account = accounts[0];
         console.log(`your account: ${account}`);
         setCurrentAccount(account);
-      } else {
-        console.log("no authorized account found");
       }
     } catch (error) {
       console.log(error);
@@ -49,7 +53,10 @@ export const WavePage = () => {
             ✨
           </span>
         </div>
-        <button className="waveButton">Wave at Me</button>
+        <WaveButton>Wave at Me</WaveButton>
+        <WaveButton onClick={connectWallet}>
+          {currentAccount ? "Wallet Connected" : "Connect Wallet"}
+        </WaveButton>
       </div>
     </div>
   );
