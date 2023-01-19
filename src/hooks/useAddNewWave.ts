@@ -5,11 +5,12 @@ import abi from "../utils/WavePortal.json";
 
 type Props = {
   ethereum: typeof window.ethereum;
+  allWaves: Wave[];
   setAllWaves: React.Dispatch<React.SetStateAction<Wave[]>>;
 };
 
-export const useAddNewWave = ({ ethereum, setAllWaves }: Props) => {
-  const contractAddress = import.meta.env.CONTAUCT_ADDRESS;
+export const useAddNewWave = ({ ethereum, allWaves, setAllWaves }: Props) => {
+  const contractAddress = "0x3C1Df04b2715029E285F61d80b7991807fcf4909";
   const contractABI = abi.abi;
 
   const onNewWave = useCallback(() => {
@@ -42,6 +43,6 @@ export const useAddNewWave = ({ ethereum, setAllWaves }: Props) => {
         };
       }
     };
-  }, []);
-  return { onNewWave };
+  }, [allWaves]);
+  return onNewWave;
 };

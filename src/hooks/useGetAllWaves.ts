@@ -7,9 +7,9 @@ type Props = {
   setAllWaves: React.Dispatch<React.SetStateAction<Wave[]>>;
 };
 
-export const useGetAllWaves = async ({ ethereum, setAllWaves }: Props) => {
+export const useGetAllWaves = ({ ethereum, setAllWaves }: Props) => {
   const getAllWaves = async () => {
-    const contractAddress = import.meta.env.CONTRACT_ADDRESS;
+    const contractAddress = "0x3C1Df04b2715029E285F61d80b7991807fcf4909";
     const contractABI = abi.abi;
 
     try {
@@ -37,5 +37,5 @@ export const useGetAllWaves = async ({ ethereum, setAllWaves }: Props) => {
       console.log(error);
     }
   };
-  return { getAllWaves };
+  return getAllWaves;
 };

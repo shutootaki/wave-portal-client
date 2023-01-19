@@ -21,7 +21,7 @@ export const WavePage = () => {
   });
   const { wave } = useWave({ ethereum, messageValue });
   const getAllWaves = useGetAllWaves({ ethereum, setAllWaves });
-  const onNewWave = useAddNewWave({ ethereum, setAllWaves });
+  const onNewWave = useAddNewWave({ ethereum, allWaves, setAllWaves });
 
   useEffect(() => {
     const chekIfWalletIsConnected = async () => {
@@ -29,16 +29,18 @@ export const WavePage = () => {
         if (!ethereum) {
           return console.log("make sure you have METAMASK");
         } else {
+          onNewWave();
           console.log("We have the ethereum object", ethereum);
         }
 
         const accounts = await ethereum.request({ method: "eth_accounts" });
-        if (accounts[0] === undefined) {
+        if (accounts[0] === null) {
           console.log("no authorized account found");
         } else if (accounts !== 0) {
           const account = accounts[0];
           console.log(`your account: ${account}`);
           setCurrentAccount(account);
+          getAllWaves();
         }
       } catch (error) {
         console.log(error);

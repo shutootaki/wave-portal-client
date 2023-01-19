@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const useWave = ({ ethereum, messageValue }: Props) => {
-  const contractAddress = import.meta.env.CONTRACT_ADDRESS;
+  const contractAddress = "0x3C1Df04b2715029E285F61d80b7991807fcf4909";
   const contractABI = abi.abi;
   const [waveCount, setWaveCount] = useState();
 
