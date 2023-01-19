@@ -8,7 +8,7 @@ import { useGetAllWaves } from "../hooks/useGetAllWaves";
 
 export const WavePage = () => {
   const [currentAccount, setCurrentAccount] = useState<string[]>([""]);
-  const [messagaValue, setMesasgeValue] = useState("");
+  const [messageValue, setMesasgeValue] = useState("");
   const [allWaves, setAllWaves] = useState<Wave[]>([]);
 
   const { ethereum } = window;
@@ -69,6 +69,15 @@ export const WavePage = () => {
         <WaveButton onClick={connectWallet}>
           {currentAccount ? "Wallet Connected" : "Connect Wallet"}
         </WaveButton>
+        {currentAccount && (
+          <textarea
+            name="massageArea"
+            placeholder="メッセージはこちら"
+            id="message"
+            value={messageValue}
+            onChange={(e) => setMesasgeValue(e.target.value)}
+          />
+        )}
       </div>
     </div>
   );
