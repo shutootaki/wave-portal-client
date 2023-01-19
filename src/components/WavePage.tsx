@@ -5,6 +5,8 @@ import { useWave } from "../hooks/useWave";
 import { Wave } from "../types/waves";
 import { useAddNewWave } from "../hooks/useAddNewWave";
 import { useGetAllWaves } from "../hooks/useGetAllWaves";
+import { MessageBox } from "./MessageBox";
+import { MessageList } from "./MessageList";
 
 export const WavePage = () => {
   const [currentAccount, setCurrentAccount] = useState<string[]>([""]);
@@ -60,24 +62,28 @@ export const WavePage = () => {
           <span role="img" aria-label="hand-wave">
             👋
           </span>
-          を送ってください
+          を送ってね
           <span role="img" aria-label="shine">
             ✨
           </span>
         </div>
+        {currentAccount && (
+          <MessageBox
+            messageValue={messageValue}
+            setMesasgeValue={setMesasgeValue}
+          />
+        )}
         <WaveButton onClick={wave}>Wave at Me</WaveButton>
         <WaveButton onClick={connectWallet}>
           {currentAccount ? "Wallet Connected" : "Connect Wallet"}
         </WaveButton>
-        {currentAccount && (
-          <textarea
-            name="massageArea"
-            placeholder="メッセージはこちら"
-            id="message"
-            value={messageValue}
-            onChange={(e) => setMesasgeValue(e.target.value)}
-          />
-        )}
+        {currentAccount &&
+          allWaves
+            .slice(0)
+            .reverse()
+            .map((wave, index) => {
+              return <MessageList wave={wave} index={index} />;
+            })}
       </div>
     </div>
   );
