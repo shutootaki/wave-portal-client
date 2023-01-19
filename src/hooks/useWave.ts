@@ -5,9 +5,10 @@ import { useState } from "react";
 type Props = {
   ethereum: typeof window.ethereum;
   messageValue: string;
+  setMessageValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const useWave = ({ ethereum, messageValue }: Props) => {
+export const useWave = ({ ethereum, messageValue, setMessageValue }: Props) => {
   const contractAddress = "0x3C1Df04b2715029E285F61d80b7991807fcf4909";
   const contractABI = abi.abi;
   const [waveCount, setWaveCount] = useState();
@@ -34,6 +35,7 @@ export const useWave = ({ ethereum, messageValue }: Props) => {
         console.log("Mined -- ", waveTxn.hash);
         setWaveCount(await wavePortalContract.getTotalWaves());
         console.log("Total wave count : ", Number(waveCount));
+        setMessageValue("");
       } else {
         console.log("ethereum object dosnt exist!");
       }
@@ -41,5 +43,5 @@ export const useWave = ({ ethereum, messageValue }: Props) => {
       console.log(error);
     }
   };
-  return { wave, waveCount };
+  return wave;
 };

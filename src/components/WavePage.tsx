@@ -10,7 +10,7 @@ import { MessageList } from "./MessageList";
 
 export const WavePage = () => {
   const [currentAccount, setCurrentAccount] = useState<string[]>([""]);
-  const [messageValue, setMesasgeValue] = useState("");
+  const [messageValue, setMessageValue] = useState("");
   const [allWaves, setAllWaves] = useState<Wave[]>([]);
 
   const { ethereum } = window;
@@ -19,7 +19,7 @@ export const WavePage = () => {
     ethereum,
     setCurrentAccount,
   });
-  const { wave } = useWave({ ethereum, messageValue });
+  const wave = useWave({ ethereum, messageValue, setMessageValue });
   const getAllWaves = useGetAllWaves({ ethereum, setAllWaves });
   const onNewWave = useAddNewWave({ ethereum, allWaves, setAllWaves });
 
@@ -57,7 +57,6 @@ export const WavePage = () => {
           </span>
           WELCOM!
         </div>
-
         <div className="bio">
           イーサリアムウォレットを接続して、メッセージを作成したら、
           <span role="img" aria-label="hand-wave">
@@ -71,7 +70,7 @@ export const WavePage = () => {
         {currentAccount && (
           <MessageBox
             messageValue={messageValue}
-            setMesasgeValue={setMesasgeValue}
+            setMesasgeValue={setMessageValue}
           />
         )}
         <WaveButton onClick={wave}>Wave at Me</WaveButton>
