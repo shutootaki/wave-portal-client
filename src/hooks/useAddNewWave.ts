@@ -9,9 +9,7 @@ type Props = {
 };
 
 export const useAddNewWave = ({ ethereum, setAllWaves }: Props) => {
-  const contractAddress = process.env.CONTAUCT_ADDRESS
-    ? process.env.CONTAUCT_ADDRESS
-    : "";
+  const contractAddress = import.meta.env.CONTAUCT_ADDRESS;
   const contractABI = abi.abi;
 
   const onNewWave = useCallback(() => {
@@ -26,7 +24,7 @@ export const useAddNewWave = ({ ethereum, setAllWaves }: Props) => {
         },
       ]);
 
-      if (ethereum) {
+      if (ethereum && contractAddress) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(

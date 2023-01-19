@@ -3,15 +3,13 @@ import abi from "../utils/WavePotal.json";
 import { useState } from "react";
 
 export const useWave = (ethereum: typeof window.ethereum) => {
-  const contractAddress = process.env.CONTAUCT_ADDRESS
-    ? process.env.CONTAUCT_ADDRESS
-    : "";
+  const contractAddress = import.meta.env.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
   const [waveCount, setWaveCount] = useState();
 
   const wave = async () => {
     try {
-      if (ethereum) {
+      if (ethereum && contractAddress) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(

@@ -9,13 +9,12 @@ type Props = {
 
 export const useGetAllWaves = async ({ ethereum, setAllWaves }: Props) => {
   const getAllWaves = async () => {
-    const contractAddress = process.env.CONTAUCT_ADDRESS
-      ? process.env.CONTAUCT_ADDRESS
-      : "";
+    const contractAddress = import.meta.env.CONTRACT_ADDRESS;
     const contractABI = abi.abi;
 
     try {
       if (!ethereum) return console.log("Ethereum object doesnt exist!");
+      if (contractAddress === undefined) return null;
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       const wavePortalContract = new ethers.Contract(
