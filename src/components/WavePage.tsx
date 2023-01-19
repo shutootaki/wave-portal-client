@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useConnectWallet } from "../hooks/useConnectWallet";
 import { WaveButton } from "./WaveButton";
 import { useWave } from "../hooks/useWave";
@@ -23,28 +23,27 @@ export const WavePage = () => {
   const getAllWaves = useGetAllWaves({ ethereum, setAllWaves });
   const onNewWave = useAddNewWave({ ethereum, setAllWaves });
 
-  const chekIfWalletIsConnected = async () => {
-    try {
-      if (!ethereum) {
-        return console.log("make sure you have METAMASK");
-      } else {
-        console.log("We have the ethereum object", ethereum);
-      }
-
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-      if (accounts[0] === undefined) {
-        console.log("no authorized account found");
-      } else if (accounts !== 0) {
-        const account = accounts[0];
-        console.log(`your account: ${account}`);
-        setCurrentAccount(account);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const chekIfWalletIsConnected = async () => {
+      try {
+        if (!ethereum) {
+          return console.log("make sure you have METAMASK");
+        } else {
+          console.log("We have the ethereum object", ethereum);
+        }
+
+        const accounts = await ethereum.request({ method: "eth_accounts" });
+        if (accounts[0] === undefined) {
+          console.log("no authorized account found");
+        } else if (accounts !== 0) {
+          const account = accounts[0];
+          console.log(`your account: ${account}`);
+          setCurrentAccount(account);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
     chekIfWalletIsConnected();
   }, []);
   return (

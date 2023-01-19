@@ -1,5 +1,5 @@
 import { Contract, ethers } from "ethers";
-import abi from "../utils/WavePotal.json";
+import abi from "../utils/WavePortal.json";
 import { useState } from "react";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import abi from "../utils/WavePotal.json";
+import abi from "../utils/WavePortal.json";
 import { Wave, getWave } from "../types/waves";
 
 type Props = {
