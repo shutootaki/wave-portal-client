@@ -2,7 +2,12 @@ import { Contract, ethers } from "ethers";
 import abi from "../utils/WavePotal.json";
 import { useState } from "react";
 
-export const useWave = (ethereum: typeof window.ethereum) => {
+type Props = {
+  ethereum: typeof window.ethereum;
+  messageValue: string;
+};
+
+export const useWave = ({ ethereum, messageValue }: Props) => {
   const contractAddress = import.meta.env.CONTRACT_ADDRESS;
   const contractABI = abi.abi;
   const [waveCount, setWaveCount] = useState();
@@ -20,7 +25,10 @@ export const useWave = (ethereum: typeof window.ethereum) => {
         setWaveCount(await wavePortalContract.getTotalWaves());
         console.log("Total wave count : ", Number(waveCount));
 
-        const waveTxn = await wavePortalContract.wave();
+        const waveTxn = await wavePortalContract.wave(messageValue, {
+          gasLimit: 300000,
+        });
+
         console.log("Mining now ...", waveTxn.hash);
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);

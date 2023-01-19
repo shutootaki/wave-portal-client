@@ -17,7 +17,7 @@ export const WavePage = () => {
     ethereum,
     setCurrentAccount,
   });
-  const { wave } = useWave(ethereum);
+  const { wave } = useWave({ ethereum, messageValue });
   const getAllWaves = useGetAllWaves({ ethereum, setAllWaves });
   const onNewWave = useAddNewWave({ ethereum, setAllWaves });
 
