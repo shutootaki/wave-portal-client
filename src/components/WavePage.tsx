@@ -2,13 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useConnectWallet } from "../hooks/useConnectWallet";
 import { WaveButton } from "./WaveButton";
 import { useWave } from "../hooks/useWave";
+import { Wave } from "../types/waves";
+import { useAddNewWave } from "../hooks/useAddNewWave";
+import { useGetAllWaves } from "../hooks/useGetAllWaves";
 
 export const WavePage = () => {
   const [currentAccount, setCurrentAccount] = useState<string[]>([""]);
-  console.log(`Current Account: ${currentAccount}`);
-  const connectWallet = useConnectWallet(setCurrentAccount);
-  const { wave, waveCount } = useWave();
+  const [messagaValue, setMesasgeValue] = useState("");
+  const [allWaves, setAllWaves] = useState<Wave[]>([]);
+
   const { ethereum } = window;
+  console.log(`Current Account: ${currentAccount}`);
+  const connectWallet = useConnectWallet({
+    ethereum,
+    setCurrentAccount,
+  });
+  const { wave } = useWave(ethereum);
+  const getAllWaves = useGetAllWaves({ ethereum, setAllWaves });
+  const onNewWave = useAddNewWave({ ethereum, setAllWaves });
 
   const chekIfWalletIsConnected = async () => {
     try {

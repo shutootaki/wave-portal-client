@@ -45,5 +45,5 @@ export const useAddNewWave = ({ ethereum, setAllWaves }: Props) => {
       }
     };
   }, []);
-  return onNewWave;
+  return { onNewWave };
 };
