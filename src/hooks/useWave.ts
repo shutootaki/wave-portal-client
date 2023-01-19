@@ -4,7 +4,9 @@ import { useState } from "react";
 
 export const useWave = () => {
   const { ethereum } = window;
-  const contractAddress = "0x50b5b62c63506D2d8807f3FEb167F7177EAF2F75";
+  const contractAddress = process.env.CONTAUCT_ADDRESS
+    ? process.env.CONTAUCT_ADDRESS
+    : "";
   const contractABI = abi.abi;
   const [waveCount, setWaveCount] = useState();
 
