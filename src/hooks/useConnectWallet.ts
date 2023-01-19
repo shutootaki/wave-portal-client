@@ -1,10 +1,9 @@
-import React, { FC } from "react";
+type Props = {
+  ethereum: typeof window.ethereum;
+  setCurrentAccount: React.Dispatch<React.SetStateAction<string[]>>;
+};
 
-export const useConnectWallet = (
-  setCurrentAccount: React.Dispatch<React.SetStateAction<string[]>>
-) => {
-  const { ethereum } = window;
-
+export const useConnectWallet = ({ ethereum, setCurrentAccount }: Props) => {
   const connectWallet = async () => {
     try {
       if (!ethereum) {
