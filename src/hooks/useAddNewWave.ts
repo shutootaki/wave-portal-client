@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const useAddNewWave = ({ ethereum, allWaves, setAllWaves }: Props) => {
-  const contractAddress = "0x3C1Df04b2715029E285F61d80b7991807fcf4909";
+  const contractAddress = "0x2Fc5f0dF433b4b8f47611B367110243f1126c4b7";
   const contractABI = abi.abi;
 
   const onNewWave = useCallback(() => {
