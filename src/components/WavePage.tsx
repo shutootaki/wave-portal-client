@@ -11,6 +11,7 @@ import { MessageList } from "./MessageList";
 export const WavePage = () => {
   const [currentAccount, setCurrentAccount] = useState<string[]>([""]);
   const [messageValue, setMessageValue] = useState("");
+  const [balance, setBalance] = useState("");
   const [allWaves, setAllWaves] = useState<Wave[]>([]);
 
   const { ethereum } = window;
@@ -19,7 +20,13 @@ export const WavePage = () => {
     ethereum,
     setCurrentAccount,
   });
-  const wave = useWave({ ethereum, messageValue, setMessageValue });
+  const wave = useWave({
+    ethereum,
+    messageValue,
+    setMessageValue,
+    balance,
+    setBalance,
+  });
   const getAllWaves = useGetAllWaves({ ethereum, setAllWaves });
   const onNewWave = useAddNewWave({ ethereum, allWaves, setAllWaves });
 
