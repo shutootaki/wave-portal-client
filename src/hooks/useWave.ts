@@ -6,8 +6,8 @@ type Props = {
   ethereum: typeof window.ethereum;
   messageValue: string;
   setMessageValue: React.Dispatch<React.SetStateAction<string>>;
-  balance: any;
-  setBalance: React.Dispatch<React.SetStateAction<any>>;
+  balance: number;
+  setBalance: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const useWave = ({
@@ -38,7 +38,9 @@ export const useWave = ({
           gasLimit: 300000,
         });
 
-        setBalance(await provider.getBalance(wavePortalContract.address));
+        setBalance(
+          (await provider.getBalance(wavePortalContract.address)).toNumber()
+        );
 
         console.log("Mining now ...", waveTxn.hash);
         await waveTxn.wait();
@@ -46,16 +48,20 @@ export const useWave = ({
         setWaveCount(await wavePortalContract.getTotalWaves());
         waveCount && console.log("Total wave count : ", waveCount.toNumber());
 
-        let contractBlancePost = await provider.getBalance(
-          wavePortalContract.address
-        );
+        let contractBlancePost = (
+          await provider.getBalance(wavePortalContract.address)
+        ).toNumber();
 
-        if (contractBlancePost.lt(balance)) {
+        if (contractBlancePost > balance) {
           console.log("User won ETH!");
         } else {
           console.log("User didnt win ETH...");
         }
 
+        console.log(
+          "Contract balance after wave:",
+          ethers.utils.formatEther(contractBlancePost)
+        );
         setMessageValue("");
       } else {
         console.log("ethereum object dosnt exist!");
