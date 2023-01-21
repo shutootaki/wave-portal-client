@@ -17,9 +17,9 @@ export const useWave = ({
   balance,
   setBalance,
 }: Props) => {
-  const contractAddress = "0xB9240eeF51c839606e69e3809B6450C335089486";
+  const contractAddress = "0x889bC1D62831dDaF42F961F4B5027486240C6F40";
   const contractABI = abi.abi;
-  const [waveCount, setWaveCount] = useState();
+  const [waveCount, setWaveCount] = useState<any>();
 
   const wave = async () => {
     try {
@@ -32,7 +32,7 @@ export const useWave = ({
           signer
         );
         setWaveCount(await wavePortalContract.getTotalWaves());
-        console.log("Total wave count : ", Number(waveCount));
+        waveCount && console.log("Total wave count : ", waveCount.toNumber());
 
         const waveTxn = await wavePortalContract.wave(messageValue, {
           gasLimit: 300000,
@@ -44,7 +44,7 @@ export const useWave = ({
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
         setWaveCount(await wavePortalContract.getTotalWaves());
-        console.log("Total wave count : ", Number(waveCount));
+        waveCount && console.log("Total wave count : ", waveCount.toNumber());
 
         let contractBlancePost = await provider.getBalance(
           wavePortalContract.address

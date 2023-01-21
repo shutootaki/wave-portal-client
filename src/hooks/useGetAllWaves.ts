@@ -9,7 +9,7 @@ type Props = {
 
 export const useGetAllWaves = ({ ethereum, setAllWaves }: Props) => {
   const getAllWaves = async () => {
-    const contractAddress = "0xB9240eeF51c839606e69e3809B6450C335089486";
+    const contractAddress = "0x889bC1D62831dDaF42F961F4B5027486240C6F40";
     const contractABI = abi.abi;
 
     try {
